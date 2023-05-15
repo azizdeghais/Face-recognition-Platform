@@ -16,16 +16,4 @@ une application mobile doit être compatible avec les systèmes d'exploitation I
   )
 }
 
-
-
-
-function Home() {
-  return (
-    <div className='background-image'>
-
-    </div>
-  )
-}
-
-
 export default Home
