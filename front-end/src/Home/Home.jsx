@@ -1,4 +1,5 @@
 import React from 'react'
+
 import '../App.css'
 import './Home.css'
 
@@ -12,6 +13,17 @@ une application mobile doit être compatible avec les systèmes d'exploitation I
 
   </div>
   
+  )
+}
+
+
+
+
+function Home() {
+  return (
+    <div>
+      Accueil
+    </div>
   )
 }
 
