@@ -1,9 +1,9 @@
-import React from 'react'
+import './Home.css'
 
 function Home() {
   return (
-    <div>
-      Accueil
+    <div className='background-image'>
+
     </div>
   )
 }
