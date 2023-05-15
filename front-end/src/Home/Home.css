@@ -1,0 +1,16 @@
+body { 
+  background: url(../public/home7.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+}
+
+/* .bg {
+background-image: url(/public/home7.jpg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+
+} */
