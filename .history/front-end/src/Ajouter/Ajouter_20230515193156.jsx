@@ -23,19 +23,6 @@ function Ajouter() {
             console.log(err)
         })
     }
-    const takePhoto=()=>{
-        const width=414;
-        const height=width/ (16/9);
-
-        let video=videoRef.current;
-        let photo=photoRef.current;
-        photo.width = width;
-        photo.height = height;
-
-        let ctx=photo.getContext('2d');
-        ctx.drawImage(video, 0,0,width,height);
-        setHasPhoto(true);
-    }
     useEffect(()=>{
         getVideo();
     },[videoRef])
@@ -52,11 +39,11 @@ function Ajouter() {
    
 
     return (
-        <Grid container>
+        <Box>
          <Box sx={{
             width: 500, 
           }}>  
-       <Grid container mt={5} spacing={4}>
+       <Grid container spacing={4}>
         <Grid xs={6}><TextField id="outlined-basic" label="Nom" variant="outlined" /></Grid>
         <Grid xs={6}><TextField id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
         <Grid xs={6}><TextField id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
@@ -100,18 +87,11 @@ function Ajouter() {
 
         <Grid xs={6} mt={2}>
             <Button onClick={Snap}  variant="outlined">Prendre un photo à l instant </Button>
-            
-        </Grid>
-        </Grid>
-        </Box>
-        </Box>
-
-        <Box sx={{width:500}}>
-        {click? (
+            {click? (
         <div className='App'>
         <div className='camera'>
             <video ref={videoRef}></video>
-            <button onClick={takePhoto}>SNAP!</button>
+            <button>SNAP!</button>
         </div>
         <div className={'result' + (hasPhoto ? 'hasPhoto':'')}>
             <canvas ref={photoRef}></canvas>
@@ -119,8 +99,14 @@ function Ajouter() {
         </div>
         </div>
         ) : null}
-        </Box>
         </Grid>
+        </Grid>
+        </Box>
+        </Box>
+        <Box sx={{width:500}}>
+
+        </Box>
+        </Box>
           
         
       );

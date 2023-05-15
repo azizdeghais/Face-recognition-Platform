@@ -55,8 +55,10 @@ function Ajouter() {
         <Grid container>
          <Box sx={{
             width: 500, 
-          }}>  
-       <Grid container mt={5} spacing={4}>
+          }}> 
+        <Typography fontSize={32} mb={2}>Veuillez remplir la formulaire</Typography>
+ 
+       <Grid container spacing={4}>
         <Grid xs={6}><TextField id="outlined-basic" label="Nom" variant="outlined" /></Grid>
         <Grid xs={6}><TextField id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
         <Grid xs={6}><TextField id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
