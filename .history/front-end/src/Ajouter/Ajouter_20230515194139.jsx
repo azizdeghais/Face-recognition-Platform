@@ -113,7 +113,7 @@ function Ajouter() {
         <div className='App'>
         <div className='camera'>
             <video ref={videoRef}></video>
-            <button onClick={takePhoto}>SNAP!</button>
+            <button>SNAP!</button>
         </div>
         <div className={'result' + (hasPhoto ? 'hasPhoto':'')}>
             <canvas ref={photoRef}></canvas>

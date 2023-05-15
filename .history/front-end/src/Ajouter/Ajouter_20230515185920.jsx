@@ -7,57 +7,19 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Typography } from '@mui/material';
 import {Button} from '@mui/material'
-import './Ajouter.css'
+
 
 function Ajouter() {
-    const videoRef=useRef(null);
-    const photoRef=useRef(null);
-    const getVideo=()=>{
-        navigator.mediaDevices.getUserMedia({video:{width:1920,heigt:1080}}).
-        then(stream =>{
-            let video=videoRef.current;
-            video.srcObject = stream;
-            video.play();
-        })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
-    const takePhoto=()=>{
-        const width=414;
-        const height=width/ (16/9);
 
-        let video=videoRef.current;
-        let photo=photoRef.current;
-        photo.width = width;
-        photo.height = height;
-
-        let ctx=photo.getContext('2d');
-        ctx.drawImage(video, 0,0,width,height);
-        setHasPhoto(true);
-    }
-    useEffect(()=>{
-        getVideo();
-    },[videoRef])
-    
-  
-   const [click,setClick]=useState(false);
-   const Snap =(e)=>{
-      e.preventDefault();
-      setClick(true);
-   }
-  
-
-   const [hasPhoto,setHasPhoto]=useState(false);
    
+  
+
+  
 
     return (
-        <Grid container>
          <Box sx={{
             width: 500, 
-          }}> 
-        <Typography fontSize={32} mb={2}>Veuillez remplir la formulaire</Typography>
- 
+          }}>  
        <Grid container spacing={4}>
         <Grid xs={6}><TextField id="outlined-basic" label="Nom" variant="outlined" /></Grid>
         <Grid xs={6}><TextField id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
@@ -100,29 +62,10 @@ function Ajouter() {
        accept="image/png, image/jpeg" />
             </Grid>
 
-        <Grid xs={6} mt={2}>
-            <Button onClick={Snap}  variant="outlined">Prendre un photo à l instant </Button>
-            
-        </Grid>
+        <Grid xs={6} mt={2}><Button  variant="outlined">Prendre un photo à l instant </Button></Grid>
         </Grid>
         </Box>
         </Box>
-
-        <Box sx={{width:500}}>
-        {click? (
-        <div className='App'>
-        <div className='camera'>
-            <video ref={videoRef}></video>
-            <button onClick={takePhoto}>SNAP!</button>
-        </div>
-        <div className={'result' + (hasPhoto ? 'hasPhoto':'')}>
-            <canvas ref={photoRef}></canvas>
-            <button>CLOSE!</button>
-        </div>
-        </div>
-        ) : null}
-        </Box>
-        </Grid>
           
         
       );

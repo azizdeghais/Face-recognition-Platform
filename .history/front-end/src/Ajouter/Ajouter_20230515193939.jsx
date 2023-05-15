@@ -23,19 +23,6 @@ function Ajouter() {
             console.log(err)
         })
     }
-    const takePhoto=()=>{
-        const width=414;
-        const height=width/ (16/9);
-
-        let video=videoRef.current;
-        let photo=photoRef.current;
-        photo.width = width;
-        photo.height = height;
-
-        let ctx=photo.getContext('2d');
-        ctx.drawImage(video, 0,0,width,height);
-        setHasPhoto(true);
-    }
     useEffect(()=>{
         getVideo();
     },[videoRef])
@@ -56,7 +43,7 @@ function Ajouter() {
          <Box sx={{
             width: 500, 
           }}> 
-        <Typography fontSize={32} mb={2}>Veuillez remplir la formulaire</Typography>
+        <Typography fontSize={32}>Veuillez remplir la formulaire</Typography>
  
        <Grid container spacing={4}>
         <Grid xs={6}><TextField id="outlined-basic" label="Nom" variant="outlined" /></Grid>
@@ -113,7 +100,7 @@ function Ajouter() {
         <div className='App'>
         <div className='camera'>
             <video ref={videoRef}></video>
-            <button onClick={takePhoto}>SNAP!</button>
+            <button>SNAP!</button>
         </div>
         <div className={'result' + (hasPhoto ? 'hasPhoto':'')}>
             <canvas ref={photoRef}></canvas>
