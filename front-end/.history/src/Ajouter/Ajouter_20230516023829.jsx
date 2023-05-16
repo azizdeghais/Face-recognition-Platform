@@ -17,13 +17,6 @@ function Ajouter() {
     const [formData, setFormData] = useState(new FormData());
     const [file, setFile] = useState(null);
     const [nom, setNom] = useState('');
-    const [prenom, setPrenom] = useState('');
-    const [debut, setDebut] = useState('');
-    const [fin, setFin] = useState('');
-    const [email, setEmail] = useState('');
-    const [naissance, setNaissance] = useState('');
-    const [numero, setNumero] = useState('');
-
 
 
     const handleChange = (e) => {
@@ -32,11 +25,7 @@ function Ajouter() {
           return {...prev, [name]:value}
         })
     }
-    const handleImageChange = (event) => {
-        const selectedFile = event.target.files[0];
-        setFile(selectedFile);
-        formData.set('image', selectedFile);
-      };
+
     const handleSubmit = async (event) => {
         // prevents the submit button from refreshing the page
         event.preventDefault();
@@ -57,43 +46,26 @@ function Ajouter() {
 
       const handleNomChange = (event) => {
         const newName = event.target.value;
-        setNom(newName);
+        setName(newName);
         formData.set('nom', newName);
       };
-      const handlePrenomChange = (event) => {
-        const newName = event.target.value;
-        setPrenom(newName);
-        formData.set('prenom', newName);
-      };
-      const handleEmailChange = (event) => {
-        const newName = event.target.value;
-        setEmail(newName);
-        formData.set('email', newName);
-      };
-      const handleNaissanceChange = (event) => {
-        const newName = event.target.value;
-        setNaissance(newName);
-        formData.set('naissance', newName);
-      };
-      const handleDebutChange = (event) => {
-        const newName = event.target.value;
-        setDebut(newName);
-        formData.set('debut', newName);
-      };
-      const handleFinChange = (event) => {
-        const newName = event.target.value;
-        setFin(newName);
-        formData.set('fin', newName);
-      };
-      const handleNumeroChange = (event) => {
-        const newName = event.target.value;
-        setNumero(newName);
-        formData.set('numero', newName);
-      };
 
+    // const handleChange=(event) =>{
+    //     const { name, value, files } = event.target;
 
+    // // Update the corresponding state
+    // if (name === 'file') {
+    //   setFile(files[0]);
+    // } else if (name === 'name') {
+    //   setName(value);
+    // } else if (name === 'age') {
+    //   setAge(value);
+    // }
 
-    
+    // // Update the formData
+    // formData.set(name, name === 'file' ? files[0] : value);
+    //   }
+
      
  
 
@@ -152,14 +124,14 @@ function Ajouter() {
         <Typography fontSize={32} mb={2}>Veuillez remplir la formulaire</Typography>
  
        <Grid container spacing={4}>
-        <Grid xs={6}><TextField onChange={handleNomChange} name='nom' id="outlined-basic" label="Nom" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handlePrenomChange} name='prenom' id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleNumeroChange} name='numero'id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleEmailChange} name='email' id="outlined-basic" label="E-Mail" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField  name='mot-de-passe' id="outlined-basic" label="Mot de passe" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleNaissanceChange} name='naissance'id="outlined-basic" label="Date de naissance" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleDebutChange} name='debut' id="outlined-basic" label="Date de debut" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleFinChange} name='fin' id="outlined-basic" label="Date de fin" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='nom' id="outlined-basic" label="Nom" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='prenom' id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='numero'id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='email' id="outlined-basic" label="E-Mail" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='mot-de-passe' id="outlined-basic" label="Mot de passe" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='naissance'id="outlined-basic" label="Date de naissance" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='debut' id="outlined-basic" label="Date de debut" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='fin' id="outlined-basic" label="Date de fin" variant="outlined" /></Grid>
 
 
        

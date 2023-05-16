@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const cors=require('cors')
 
 const storage=multer.diskStorage({
@@ -14,7 +15,6 @@ const storage=multer.diskStorage({
         cb(null,file.originalname);
     }
 });
-const upload=multer({storage:storage});
 
 app.use(
     cors({

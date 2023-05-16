@@ -52,7 +52,7 @@ const imageSchema = new mongoose.Schema({
 const Image = mongoose.model('Image', imageSchema);
 
 // Define an endpoint for uploading images
-app.post('/upload', upload.single('image'), async (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
   try {
 
     // Upload image to Cloudinary

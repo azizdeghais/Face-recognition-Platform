@@ -3,18 +3,8 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const cors=require('cors')
-
-const storage=multer.diskStorage({
-    destination:function(req,file,cb){
-        // set dest
-        cb(null,'uploads/');
-    },
-    filename:function(req,file,cb){
-        cb(null,file.originalname);
-    }
-});
-const upload=multer({storage:storage});
 
 app.use(
     cors({
@@ -54,7 +44,6 @@ const Image = mongoose.model('Image', imageSchema);
 // Define an endpoint for uploading images
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
-
     // Upload image to Cloudinary
     const cloudinary = require('cloudinary').v2;
     cloudinary.config({

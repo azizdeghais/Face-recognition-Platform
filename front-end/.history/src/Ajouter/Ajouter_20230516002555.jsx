@@ -14,88 +14,21 @@ import './Ajouter.css'
 
 function Ajouter() {
 
-    const [formData, setFormData] = useState(new FormData());
-    const [file, setFile] = useState(null);
-    const [nom, setNom] = useState('');
-    const [prenom, setPrenom] = useState('');
-    const [debut, setDebut] = useState('');
-    const [fin, setFin] = useState('');
-    const [email, setEmail] = useState('');
-    const [naissance, setNaissance] = useState('');
-    const [numero, setNumero] = useState('');
-
-
-
     const handleChange = (e) => {
         const {name,value}=e.target
         setData((prev)=>{
           return {...prev, [name]:value}
         })
+        console.log(data)
     }
-    const handleImageChange = (event) => {
-        const selectedFile = event.target.files[0];
-        setFile(selectedFile);
-        formData.set('image', selectedFile);
-      };
-    const handleSubmit = async (event) => {
-        // prevents the submit button from refreshing the page
-        event.preventDefault();
-      
-        await axios
-          .post("http://localhost:3000/upload", formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      };
-
-      const handleNomChange = (event) => {
-        const newName = event.target.value;
-        setNom(newName);
-        formData.set('nom', newName);
-      };
-      const handlePrenomChange = (event) => {
-        const newName = event.target.value;
-        setPrenom(newName);
-        formData.set('prenom', newName);
-      };
-      const handleEmailChange = (event) => {
-        const newName = event.target.value;
-        setEmail(newName);
-        formData.set('email', newName);
-      };
-      const handleNaissanceChange = (event) => {
-        const newName = event.target.value;
-        setNaissance(newName);
-        formData.set('naissance', newName);
-      };
-      const handleDebutChange = (event) => {
-        const newName = event.target.value;
-        setDebut(newName);
-        formData.set('debut', newName);
-      };
-      const handleFinChange = (event) => {
-        const newName = event.target.value;
-        setFin(newName);
-        formData.set('fin', newName);
-      };
-      const handleNumeroChange = (event) => {
-        const newName = event.target.value;
-        setNumero(newName);
-        formData.set('numero', newName);
-      };
-
-
-
-    
-     
- 
+    const handleImageChange=(event) =>{
+        const file = event.target.files[0];
+        setSelectedImage(URL.createObjectURL(file));
+        console.log(selectedImage);
+        data.url=selectedImage;
+      }
+    const [data,setData]=useState({nom:'',prenom:'',numero:'',email:'',url:null,debut:'',fin:'',naissance:''});
+    const [selectedImage, setSelectedImage] = useState(null);
 
     // const [naissance, setNaissance] =useState(dayjs('2023-05-15'));
     // const [debut, setDebut] =useState(dayjs('2023-05-15'));
@@ -129,7 +62,9 @@ function Ajouter() {
         ctx.drawImage(video, 0,0,width,height);
         setHasPhoto(true);
     }
-   
+    useEffect(()=>{
+        getVideo();
+    },[videoRef])
     
   
    const [click,setClick]=useState(false);
@@ -143,8 +78,6 @@ function Ajouter() {
    
 
     return (
-        <form method='post' onSubmit={handleSubmit} encType='multipart/form-data'>
-
         <Grid container>
          <Box sx={{
             width: 500, 
@@ -152,14 +85,14 @@ function Ajouter() {
         <Typography fontSize={32} mb={2}>Veuillez remplir la formulaire</Typography>
  
        <Grid container spacing={4}>
-        <Grid xs={6}><TextField onChange={handleNomChange} name='nom' id="outlined-basic" label="Nom" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handlePrenomChange} name='prenom' id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleNumeroChange} name='numero'id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleEmailChange} name='email' id="outlined-basic" label="E-Mail" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField  name='mot-de-passe' id="outlined-basic" label="Mot de passe" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleNaissanceChange} name='naissance'id="outlined-basic" label="Date de naissance" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleDebutChange} name='debut' id="outlined-basic" label="Date de debut" variant="outlined" /></Grid>
-        <Grid xs={6}><TextField onChange={handleFinChange} name='fin' id="outlined-basic" label="Date de fin" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='nom' id="outlined-basic" label="Nom" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='prenom' id="outlined-basic" label="Prénom" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='numero'id="outlined-basic" label="Numéro de téléphone" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='email' id="outlined-basic" label="E-Mail" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='mot-de-passe' id="outlined-basic" label="Mot de passe" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='naissance'id="outlined-basic" label="Date de naissance" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='debut' id="outlined-basic" label="Date de debut" variant="outlined" /></Grid>
+        <Grid xs={6}><TextField onChange={handleChange} name='fin' id="outlined-basic" label="Date de fin" variant="outlined" /></Grid>
 
 
        
@@ -191,7 +124,7 @@ function Ajouter() {
             <Typography variant="outlined">
             Choisir un photo de votre PC 
             </Typography>
-            <input name='image'  type="file"  onChange={handleImageChange} accept="image/png, image/jpeg,image/jpg" />
+            <input type="file"  onChange={handleImageChange} accept="image/png, image/jpeg" />
             </Grid>
 
         <Grid xs={6} mt={2}>
@@ -200,15 +133,9 @@ function Ajouter() {
         </Grid>
         </Grid>
         </Box>
-        <Grid mt={2}>
-        <Button type="submit" variant="outlined">Submit</Button>
-
-
-        </Grid>
         </Box>
-        
 
-        {/* <Box sx={{width:500}}>
+        <Box sx={{width:500}}>
         {click? (
         <div className='App'>
         <div className='camera'>
@@ -221,11 +148,9 @@ function Ajouter() {
         </div>
         </div>
         ) : null}
-        </Box> */}
-
+        </Box>
         </Grid>
-        
-        </form>
+          
         
       );
 }
