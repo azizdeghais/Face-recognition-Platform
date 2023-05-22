@@ -3,8 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const cors=require('cors');
-const bcrypt = require('bcrypt');
+const cors=require('cors')
 
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -20,7 +19,7 @@ const upload=multer({storage:storage});
 app.use(
     cors({
       origin: 'http://localhost:5173', // Allow requests from example.com
-      methods: 'GET,POST,DELETE', // Allow only GET and POST methods
+      methods: 'GET,POST', // Allow only GET and POST methods
       allowedHeaders: 'Content-Type,Authorization', // Allow specific headers
       credentials: true, // Allow sending cookies with requests
     })
@@ -47,8 +46,7 @@ const imageSchema = new mongoose.Schema({
   naissance:String,
   debut:String,
   fin:String,
-  email:String,
-  password:String,
+  email:String
 });
 
 const Image = mongoose.model('Image', imageSchema);
@@ -74,16 +72,15 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const fin=req.body.fin;
     const debut=req.body.debut;
     const email=req.body.email;
-    const password=req.body.password;
-    
+
 
 
     // Save image URL to MongoDB
-    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email,password});
+    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email });
     await image.save();
 
     // Return the image URL in the response
-    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email,password});
+    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email });
   } catch (error) {
     console.error('Error uploading image', error);
     res.status(500).json({ error: 'Failed to upload image' });
@@ -93,7 +90,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 app.get("/users", async (req, res) => {
   try{
    const users= await Image.find()
-   res.status(200).json(users)
+   res.status(200).json(chefChantierPosts)
   } catch (err){
    res.status(500).json(err)
   }

@@ -74,16 +74,16 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const fin=req.body.fin;
     const debut=req.body.debut;
     const email=req.body.email;
-    const password=req.body.password;
+    const hashedPass=await bcrypt(req.body.password,10)
     
 
 
     // Save image URL to MongoDB
-    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email,password});
+    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email,hashedPass });
     await image.save();
 
     // Return the image URL in the response
-    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email,password});
+    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email });
   } catch (error) {
     console.error('Error uploading image', error);
     res.status(500).json({ error: 'Failed to upload image' });

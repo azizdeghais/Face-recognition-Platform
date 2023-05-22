@@ -3,8 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const multer = require('multer');
-const cors=require('cors');
-const bcrypt = require('bcrypt');
+const cors=require('cors')
 
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
@@ -47,8 +46,7 @@ const imageSchema = new mongoose.Schema({
   naissance:String,
   debut:String,
   fin:String,
-  email:String,
-  password:String,
+  email:String
 });
 
 const Image = mongoose.model('Image', imageSchema);
@@ -74,16 +72,15 @@ app.post('/upload', upload.single('image'), async (req, res) => {
     const fin=req.body.fin;
     const debut=req.body.debut;
     const email=req.body.email;
-    const password=req.body.password;
-    
+
 
 
     // Save image URL to MongoDB
-    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email,password});
+    const image = new Image({ url: result.secure_url,nom,prenom,numero,naissance,fin,debut,email });
     await image.save();
 
     // Return the image URL in the response
-    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email,password});
+    res.json({ url: result.secure_url ,nom,prenom,numero,naissance,fin,debut,email });
   } catch (error) {
     console.error('Error uploading image', error);
     res.status(500).json({ error: 'Failed to upload image' });
