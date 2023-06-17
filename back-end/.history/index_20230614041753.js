@@ -36,7 +36,7 @@ app.use(
   );
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://miker:miker@imagegeneratordall-e.arsxo0m.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://hamzamrad:hamza2754651007@cluster0.uadxpsh.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -60,7 +60,7 @@ const historiqueSchema = new mongoose.Schema({
 });
 
 const imageSchema = new mongoose.Schema({
-  url:{type:String,required:true},
+  image:{type:String,required:true},
   nom:{type:String,required:true},
   prenom:{type:String,required:true},
   numero:{type:String,required:true},
@@ -140,6 +140,39 @@ app.post('/upload', upload.single('image'), async (req, res) => {
    
     // Return the image URL in the response
     res.json({ url: result.secure_url,nom,prenom,numero,code,fin,debut,email,password});
+
+    // // Send email
+    // const transporter = nodemailer.createTransport({
+    //   service: 'gmail', // e.g., 'Gmail', 'Outlook'
+    //   auth: {
+    //     user: 'your_email_address',
+    //     pass: 'your_email_password',
+    //   },
+    // });
+
+    // const mailOptions = {
+    //   from: 'your_email_address',
+    //   to: email,
+    //   subject: 'New Image Upload',
+    //   text: `An image has been uploaded with the following details:
+    //     Nom: ${nom}
+    //     Prenom: ${prenom}
+    //     Numero: ${numero}
+    //     Code: ${code}
+    //     Fin: ${fin}
+    //     Debut: ${debut}`,
+    // };
+
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.error('Error sending email', error);
+    //     res.status(500).json({ error: 'Failed to send email' });
+    //   } else {
+    //     console.log('Email sent:', info.response);
+    //     res.json({ url: result.secure_url, nom, prenom, numero, code, fin, debut, email, password });
+    //   }
+    // });
+
   } catch (error) {
     console.error('S il vous plaît quelque chose manque du formulaire',error);
     res.status(500).json({ error: 'S il vous plaît quelque chose manque du formulaire' });
@@ -167,19 +200,9 @@ res.status(200).json("User has been deleted")
 app.put("/:id",upload.single('image') ,async (req,res)=>{
    
   try {
-    const cloudinary = require('cloudinary').v2;
-
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
-
-    const result = await cloudinary.uploader.upload(req.file.path);
-
     const updatedImage = await Image.findOneAndUpdate(
       { _id: req.params.id },
-      {$set:{url:result.secure_url,...req.body}},
+      {$set:req.body},
       { new: true }
     );
     if (!updatedImage) {

@@ -36,7 +36,7 @@ app.use(
   );
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://miker:miker@imagegeneratordall-e.arsxo0m.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://hamzamrad:hamza2754651007@cluster0.uadxpsh.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -60,7 +60,6 @@ const historiqueSchema = new mongoose.Schema({
 });
 
 const imageSchema = new mongoose.Schema({
-  url:{type:String,required:true},
   nom:{type:String,required:true},
   prenom:{type:String,required:true},
   numero:{type:String,required:true},
@@ -167,19 +166,9 @@ res.status(200).json("User has been deleted")
 app.put("/:id",upload.single('image') ,async (req,res)=>{
    
   try {
-    const cloudinary = require('cloudinary').v2;
-
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-    });
-
-    const result = await cloudinary.uploader.upload(req.file.path);
-
     const updatedImage = await Image.findOneAndUpdate(
       { _id: req.params.id },
-      {$set:{url:result.secure_url,...req.body}},
+      {$set:req.body},
       { new: true }
     );
     if (!updatedImage) {
